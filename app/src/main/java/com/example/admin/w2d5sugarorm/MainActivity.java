@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
             Book book = new Book(add.getStringExtra(AddActivity.TITLE), add.getStringExtra(AddActivity.AUTHOR));
             mArrayList.add(book);
             book.save();
-            add.removeExtra(add.getStringExtra(AddActivity.TITLE));
-            add.removeExtra(add.getStringExtra(AddActivity.AUTHOR));
+            add.removeExtra(AddActivity.TITLE);
+            add.removeExtra(AddActivity.AUTHOR);
         }
 
         bookAdapter.notifyDataSetChanged();
@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     public void deleteAll(View view) {
         Book.deleteAll(Book.class);
         mArrayList.clear();
+        mArrayList.addAll(Book.listAll(Book.class));
+        bookAdapter.notifyDataSetChanged();
+    }
+
+    public void delete(Book book){
+        Book.delete(book);
         mArrayList.addAll(Book.listAll(Book.class));
         bookAdapter.notifyDataSetChanged();
     }
